@@ -4,8 +4,8 @@ from flask import request
 from services.item import ItemService
 
 class ItemResource(Resource):
-    def __init__(self, item_service: ItemService):
-        self.service = item_service
+    def __init__(self, **kwargs):
+        self.service = kwargs['service']
 
     def get(self):
         return {'hello': 'world'}
@@ -13,6 +13,6 @@ class ItemResource(Resource):
     def post(self):
         request_body = request.get_json()
 
-        self.service.create(request_body)
+        created = self.service.create(request_body)
 
-        return request_body, 201
+        return created, 201

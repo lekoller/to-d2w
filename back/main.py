@@ -2,10 +2,13 @@ import os
 
 from flask import Flask
 from flask_restful import Api
+from repository.item import ItemRepository
 from resources.item import ItemResource
 from repository.base import db, create_db
 from flask_migrate import Migrate
 from dotenv import load_dotenv
+
+from services.item import ItemService
 
 load_dotenv()
 
@@ -18,7 +21,11 @@ db_name = os.environ.get('DB_NAME')
 app = Flask(__name__)
 
 api = Api(app)    
-api.add_resource(ItemResource, '/')
+api.add_resource(
+    ItemResource, 
+    '/', 
+    resource_class_kwargs={ "service": ItemService(ItemRepository()) }
+)
 
 db_conn_string = "postgresql://"+db_user+":"+db_pass+"@"+db_host+":"+db_port
 create_db(db_conn_string)
