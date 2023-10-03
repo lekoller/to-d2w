@@ -1,5 +1,5 @@
 from models.item import ItemModel
-from base import db
+from repository.base import db
 from entities.item import Item
 
 class ItemRepository:

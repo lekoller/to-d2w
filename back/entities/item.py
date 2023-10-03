@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, title, description, due_date, completed=False):
+    def __init__(self, title, description, completed=False):
         self.title = title
         self.description = description
         self.completed = completed
