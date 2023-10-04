@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 from repository.item import ItemRepository
-from resources.item import ItemResource
+from resources.item import ItemCrudResource
 from repository.base import db, create_db
 from flask_migrate import Migrate
 from dotenv import load_dotenv
@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 api = Api(app)    
 api.add_resource(
-    ItemResource, 
+    ItemCrudResource, 
     '/', 
     resource_class_kwargs={ "service": ItemService(ItemRepository()) }
 )

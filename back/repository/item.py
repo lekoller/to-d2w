@@ -17,30 +17,29 @@ class ItemRepository:
     def get_all(self) -> list[ItemModel]:
         return ItemModel.query.all()
 
-    def update(self, item_id, title=None, description=None, due_date=None, completed=None) -> ItemModel:
-        model = self.get_one(item_id)
+    def update(self, id: int, entity: Item) -> ItemModel:
+        model = self.get_one(id)
+
         if not model:
             return None
 
-        if title is not None:
-            model.title = title
-        if description is not None:
-            model.description = description
-        if due_date is not None:
-            model.due_date = due_date
-        if completed is not None:
-            model.completed = completed
+        if entity.title is not None:
+            model.title = entity.title
+        if entity.description is not None:
+            model.description = entity.description
+        if entity.completed is not None:
+            model.completed = entity.completed
 
         db.session.commit()
 
         return model
 
-    def delete(self, item_id) -> bool:
-        model = self.get_one(item_id)
+    def destroy(self, id) -> bool:
+        model = self.get_one(id)
         if not model:
             return False
 
         db.session.delete(model)
         db.session.commit()
-        
+
         return True
