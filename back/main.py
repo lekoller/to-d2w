@@ -3,10 +3,12 @@ import os
 from flask import Flask
 from flask_restful import Api
 from repository.item import ItemRepository
-from resources.item import ItemCrudResource
+from resources.crud import ItemCrudResource
+
 from repository.base import db, create_db
 from flask_migrate import Migrate
 from dotenv import load_dotenv
+from resources.mark import ItemMarkResource
 
 from services.item import ItemService
 
@@ -20,10 +22,16 @@ db_name = os.environ.get('DB_NAME')
 
 app = Flask(__name__)
 
-api = Api(app)    
+api = Api(app, prefix='/api/v1')
+
 api.add_resource(
     ItemCrudResource, 
-    '/', 
+    '/item', 
+    resource_class_kwargs={ "service": ItemService(ItemRepository()) }
+)
+api.add_resource(
+    ItemMarkResource, 
+    '/item/done', 
     resource_class_kwargs={ "service": ItemService(ItemRepository()) }
 )
 

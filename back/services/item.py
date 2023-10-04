@@ -53,3 +53,19 @@ class ItemService():
     def delete(self, id: int) -> bool:
         return self.repository.destroy(id)
     
+    def mark_completed(self, id: int) -> dict:
+        model = self.repository.get_one(id)
+
+        if not model:
+            return None
+
+        entity = Item(title=model.title, description=model.description, completed=model.completed)
+
+        entity.mark_completed()
+
+        model = self.repository.update(id, entity=entity)
+
+        if not model:
+            return None
+
+        return model.to_dict()
