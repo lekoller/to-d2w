@@ -8,11 +8,10 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 
-def create_db(connection_string: str):
-	engine = db.create_engine(connection_string, isolation_level="AUTOCOMMIT")
+def create_db(db_url: str, db_name: str):
+	engine = db.create_engine(db_url, isolation_level="AUTOCOMMIT")
 
 	conn: Connection = engine.connect()
-	db_name = "to_d2w"
 
 	if not conn.execute(text(f"SELECT 1 FROM pg_database WHERE datname = '{db_name}'")).fetchone():
 		conn.execute(text(f"CREATE DATABASE {db_name}"))
