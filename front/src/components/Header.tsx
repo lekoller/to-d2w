@@ -1,8 +1,7 @@
 import React from "react";
-import { InfoCircleOutlined } from "@ant-design/icons";
 import { Form, Input, Button, Typography } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 
 const D2wHeader: React.FC = () => {
