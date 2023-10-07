@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { TodoItem } from "../interfaces";
+import { TodoListClient } from "../services";
 
 export const TodoListContext: React.Context<TodoItem[]> = React.createContext<
   TodoItem[]
@@ -13,20 +13,28 @@ export const TodoListUpdateContext: React.Context<
 function TodoListProvider({ children }: { children: React.ReactNode }) {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/v1/item")
-      .then((res) => {
-        setTodoList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const client = useMemo(() => new TodoListClient(), []);
 
-  const updateTodoList = (todoList: TodoItem[]) => {
+  const fetchTodoItems = useCallback(async () => {
+    const items = await client.listItems();
+    setTodoList(items);
+  }, [client]);
+
+  useEffect(() => {
+    fetchTodoItems();
+  }, [fetchTodoItems]);
+
+  const updateTodoList = (
+    todoList: TodoItem[],
+    fromServer: boolean = false
+  ) => {
+    if (fromServer) {
+      fetchTodoItems();
+      return;
+    }
+
     setTodoList(todoList);
-  }
+  };
 
   return (
     <TodoListContext.Provider value={todoList}>
