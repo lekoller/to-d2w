@@ -9,6 +9,7 @@ interface D2WModalProps {
   id: number;
   itemDescription?: string;
   itemTitle?: string;
+  commit?: () => void;
 }
 
 const D2WModal: React.FC<D2WModalProps> = ({
@@ -17,9 +18,13 @@ const D2WModal: React.FC<D2WModalProps> = ({
   title,
   description,
   id,
+  commit,
 }: D2WModalProps) => {
   const handleOk = () => {
     console.log(id);
+    if (commit) {
+      commit();
+    }
     setOpen(false);
   };
 

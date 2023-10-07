@@ -4,17 +4,19 @@ import "./App.css";
 import Header from "./components/Header";
 import TodoList from "./components/List";
 import { TodoListProvider } from "./contexts";
+import SpinProvider from "./contexts/SpinContext";
 
 function App() {
   return (
-    <TodoListProvider>
-      <Layout className="container">
-        <Header />
-        <TodoList />
-      </Layout>
-    </TodoListProvider>
+    <SpinProvider>
+      <TodoListProvider>
+        <Layout className="container">
+          <Header />
+          <TodoList />
+        </Layout>
+      </TodoListProvider>
+    </SpinProvider>
   );
 }
 
 export default App;
- 

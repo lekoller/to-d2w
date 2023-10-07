@@ -1,11 +1,38 @@
 import React from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, Space } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons";
-
+import { PlusOutlined } from "@ant-design/icons";
+import { CreateItemDTO } from "../interfaces";
+import { TodoListClient } from "../services";
+import { useUpdateSpin, useTodoListUpdate } from "../contexts";
 
 const D2wHeader: React.FC = () => {
   const [form] = Form.useForm();
+
+  // const title = Form.useWatch("title", form);
+  // const discription = Form.useWatch("description", form);
+  const client = new TodoListClient();
+
+  const updateItems = useTodoListUpdate();
+  const updateSpin = useUpdateSpin();
+
+  const onFinish = async (values: CreateItemDTO) => {
+    updateSpin(true);
+    
+    setTimeout(() => {
+      updateSpin(false);
+    }, 400);
+    
+    await client.add(values)
+    
+    updateItems([], true);
+    
+    
+    form.resetFields();
+  };
+
+  // console.log(title);
+  // console.log(discription);
 
   return (
     <Header
@@ -42,29 +69,43 @@ const D2wHeader: React.FC = () => {
           width: "70vw",
           justifyContent: "space-between",
         }}
+        onFinish={onFinish}
       >
-        <Form.Item
-          required
-          tooltip="This is a required field"
-          style={{ marginInline: 10, width: "60%" }}
+        <Space
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "self-start",
+            width: "60%",
+          }}
         >
           <Typography.Text style={{ color: "white" }}>Title</Typography.Text>
-          <Input placeholder="Name the task" size={"large"} />
-        </Form.Item>
-        <Form.Item
-          tooltip={{
-            title: "Tooltip with customize icon",
-            icon: <InfoCircleOutlined />,
+          <Form.Item
+            name={"title"}
+            style={{ marginRight: 10, width: "20vw" }}
+            required
+          >
+            <Input placeholder="Name the task" size={"large"} />
+          </Form.Item>
+        </Space>
+        <Space
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "self-start",
+            width: "100%",
           }}
-          style={{ marginInline: 10, width: "100%" }}
         >
           <Typography.Text style={{ color: "white" }}>
             Description
           </Typography.Text>
-          <Input placeholder="Describe the task" 
-          size={"large"}
-           />
-        </Form.Item>
+          <Form.Item
+            name={"description"}
+            style={{ marginRight: 10, width: "40vw" }}
+          >
+            <Input placeholder="Describe the task" size={"large"} />
+          </Form.Item>
+        </Space>
 
         <Form.Item>
           <Button
@@ -72,7 +113,8 @@ const D2wHeader: React.FC = () => {
             shape="round"
             icon={<PlusOutlined />}
             size={"large"}
-            style={{ marginInline: 10, marginTop: 18 }}
+            style={{ marginInline: 10, marginTop: 26 }}
+            htmlType="submit"
           >
             Add
           </Button>
