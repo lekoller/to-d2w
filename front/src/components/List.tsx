@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Layout, Space, Timeline, Typography } from "antd";
 import { CheckCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import Modal from "./Modal";
+import { useTodoList } from "../contexts";
 
-interface TodoItem {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+// interface TodoListProps {
+//   items: Array<TodoItem>;
+// }
 
-interface TodoListProps {
-  items: Array<TodoItem>;
-}
-
-const TodoList: React.FC<TodoListProps> = ({ items }: TodoListProps) => {
+function TodoList() {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openMarkDone, setOpenMarkDone] = useState(false);
   const [selectedId, setSelectedId] = useState(0);
   const [selectedTitle, setSelectedTitle] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
+
+  const items = useTodoList();
 
   const timelineItems = items.map((item) => {
     return {
@@ -119,6 +115,6 @@ const TodoList: React.FC<TodoListProps> = ({ items }: TodoListProps) => {
       />
     </Layout>
   );
-};
+}
 
 export default TodoList;

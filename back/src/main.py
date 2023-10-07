@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from flask_migrate import Migrate, upgrade
 
 from repository import base
@@ -10,6 +11,8 @@ from api import api
 def create_app(db_url: str, db_name: str) -> Flask:
 
     app = Flask(__name__)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url+"/"+db_name
 
     return app
