@@ -2,7 +2,7 @@ import { Layout } from "antd";
 
 import "./App.css";
 import Header from "./components/Header";
-import TodoList from "./components/List";
+import { TodoList } from "./components";
 import { TodoListProvider } from "./contexts";
 import SpinProvider from "./contexts/SpinContext";
 

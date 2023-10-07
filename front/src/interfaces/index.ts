@@ -15,3 +15,12 @@ export interface UpdateItemDTO {
   title: string;
   description: string;
 }
+
+export interface TimelineSetters {
+  setOpenEdit: (open: boolean) => void;
+  setSelectedId: (id: number) => void;
+  setSelectedTitle: (title: string) => void;
+  setSelectedDescription: (description: string) => void;
+  setOpenMarkDone: (open: boolean) => void;
+  setOpenDelete: (open: boolean) => void;
+}
