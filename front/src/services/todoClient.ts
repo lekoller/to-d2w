@@ -1,7 +1,11 @@
-import { CreateItemDTO, TodoItem } from "../interfaces";
+import { CreateItemDTO, TodoItem, UpdateItemDTO } from "../interfaces";
 import { Client } from "./client";
 
-export class TodoListClient extends Client<TodoItem, CreateItemDTO> {
+export class TodoListClient extends Client<
+  TodoItem,
+  CreateItemDTO,
+  UpdateItemDTO
+> {
   constructor() {
     super("/item");
   }

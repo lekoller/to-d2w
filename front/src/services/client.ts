@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-export class Client<T, C> {
+export class Client<T, C, U> {
   protected instance: AxiosInstance;
   protected path: string;
 
@@ -25,7 +25,7 @@ export class Client<T, C> {
     return (await this.instance.delete(`${this.path}?id=${id}`)).data;
   }
 
-  async update(item: T): Promise<T> {
+  async update(item: U): Promise<T> {
     return (await this.instance.patch(this.path, item)).data;
   }
 }

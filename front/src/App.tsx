@@ -1,10 +1,9 @@
 import { Layout } from "antd";
 
 import "./App.css";
-import Header from "./components/Header";
-import { TodoList } from "./components";
-import { TodoListProvider } from "./contexts";
-import SpinProvider from "./contexts/SpinContext";
+import { TodoList, Header } from "./components";
+import { TodoListProvider, SpinProvider } from "./contexts";
+import { EditItemProvider } from "./contexts";
 
 function App() {
   return (
@@ -12,7 +11,9 @@ function App() {
       <TodoListProvider>
         <Layout className="container">
           <Header />
-          <TodoList />
+          <EditItemProvider>
+            <TodoList />
+          </EditItemProvider>
         </Layout>
       </TodoListProvider>
     </SpinProvider>

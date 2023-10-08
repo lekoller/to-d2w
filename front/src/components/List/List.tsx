@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Empty, Layout, Spin, Timeline } from "antd";
 import Modal from "../Modal";
-import { useSpin, useTodoList, useTodoListUpdate } from "../../contexts";
+import {
+  useEditItem,
+  useSpin,
+  useTodoList,
+  useTodoListUpdate,
+  useUpdateSpin,
+} from "../../contexts";
 import { TodoListClient } from "../../services";
 import { makeTimelineItems } from "./makeTimelineContent";
 
@@ -12,11 +18,13 @@ function TodoList() {
   const [selectedId, setSelectedId] = useState(0);
   const [selectedTitle, setSelectedTitle] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
-
+  
   const items = useTodoList();
   const updateItems = useTodoListUpdate();
   const spinning = useSpin();
-
+  const updateSpin = useUpdateSpin();
+  const editItem = useEditItem();
+  
   const client = new TodoListClient();
 
   const deleteItem = async (id: number) => {
@@ -27,6 +35,7 @@ function TodoList() {
     updateItems(remains);
   };
 
+  
   const markDone = async (id: number) => {
     client.completeItem(id);
 
@@ -34,12 +43,24 @@ function TodoList() {
       if (item.id === id) {
         item.completed = true;
       }
-
+      
       return item;
     });
-
+    
     updateItems(updated);
   };
+
+  const updateItem = async () => {
+    updateSpin(true);
+
+    setTimeout(() => {
+      updateSpin(false);
+    }, 400);
+
+    await client.update(editItem);
+
+    updateItems([], true);
+  }
 
   const timelineSetters = {
     setOpenDelete,
@@ -48,14 +69,12 @@ function TodoList() {
     setSelectedId,
     setSelectedTitle,
     setSelectedDescription,
-  }
+  };
 
   return (
     <Spin style={{ marginTop: "20vh" }} spinning={spinning}>
       <Layout className="main">
-        { items.length === 0 && (
-          <Empty/>
-        )}
+        {items.length === 0 && <Empty />}
         <Timeline
           style={{
             alignItems: "center",
@@ -68,7 +87,6 @@ function TodoList() {
           setOpen={setOpenDelete}
           title="Delete Task"
           description={`Would you like to delete the task "${selectedTitle}"?`}
-          id={selectedId}
           commit={() => deleteItem(selectedId)}
         />
         <Modal
@@ -76,16 +94,16 @@ function TodoList() {
           setOpen={setOpenMarkDone}
           title="Mark Task Done"
           description={`Would you like to set the task "${selectedTitle}" completed?`}
-          id={selectedId}
           commit={() => markDone(selectedId)}
         />
         <Modal
           open={openEdit}
           setOpen={setOpenEdit}
           title="Update Task"
-          id={selectedId}
+          itemId={selectedId}
           itemTitle={selectedTitle}
           itemDescription={selectedDescription}
+          commit={updateItem}
         />
       </Layout>
     </Spin>
