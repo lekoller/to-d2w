@@ -1,3 +1,4 @@
+from sqlalchemy import asc
 from repository.base import db
 from entities.item import Item
 
@@ -20,6 +21,10 @@ class ItemModel(db.Model):
             description=self.description,
             completed=self.completed
         )
+    
+    @classmethod
+    def get_all(cls) -> list['ItemModel']:
+        return cls.query.order_by(asc(cls.id)).all()
 
     def to_dict(self):
         return {

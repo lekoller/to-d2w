@@ -15,7 +15,7 @@ class ItemRepository:
         return ItemModel.query.get(item_id)
 
     def get_all(self) -> list[ItemModel]:
-        return ItemModel.query.all()
+        return ItemModel.get_all()
 
     def update(self, id: int, entity: Item) -> ItemModel:
         model = self.get_one(id)
