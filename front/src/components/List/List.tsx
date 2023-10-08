@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Empty, Layout, Spin, Timeline } from "antd";
-import Modal from "../Modal";
+import { Modal } from "../Modal";
 import {
   useEditItem,
   useSpin,
@@ -18,13 +18,13 @@ function TodoList() {
   const [selectedId, setSelectedId] = useState(0);
   const [selectedTitle, setSelectedTitle] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
-  
+
   const items = useTodoList();
   const updateItems = useTodoListUpdate();
   const spinning = useSpin();
   const updateSpin = useUpdateSpin();
   const editItem = useEditItem();
-  
+
   const client = new TodoListClient();
 
   const deleteItem = async (id: number) => {
@@ -35,7 +35,6 @@ function TodoList() {
     updateItems(remains);
   };
 
-  
   const markDone = async (id: number) => {
     client.completeItem(id);
 
@@ -43,10 +42,10 @@ function TodoList() {
       if (item.id === id) {
         item.completed = true;
       }
-      
+
       return item;
     });
-    
+
     updateItems(updated);
   };
 
@@ -60,7 +59,7 @@ function TodoList() {
     await client.update(editItem);
 
     updateItems([], true);
-  }
+  };
 
   const timelineSetters = {
     setOpenDelete,

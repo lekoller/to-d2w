@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Modal, Form as AntdForm } from "antd";
-import { Form } from "./Form";
-import { D2WModalProps } from "../interfaces";
+import { Form } from "../ItemForm";
+import { D2WModalProps } from "../../interfaces";
 import { 
   useUpdateEditItem, 
   useEditItem 
-} from "../contexts";
+} from "../../contexts";
 
 function D2WModal({
   open,

@@ -1,6 +1,6 @@
 import { Typography, Form as AntdForm } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { Form } from "../Form";
+import { Form } from "../ItemForm";
 import { TodoListClient } from "../../services";
 import { useTodoListUpdate, useUpdateSpin } from "../../contexts";
 import { CreateItemDTO } from "../../interfaces";

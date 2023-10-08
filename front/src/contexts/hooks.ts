@@ -2,6 +2,7 @@ import React from "react";
 import { TodoListContext, TodoListUpdateContext } from "./TodoListContext";
 import { SpinContext, UpdateSpinContext } from "./SpinContext";
 import { EditItemContext, UpdateEditItemContext } from "./EditItemContext";
+import { AuthContext, UpdateAuthContext } from "./AuthContext";
 
 export function useTodoList() {
   return React.useContext(TodoListContext);
@@ -25,4 +26,12 @@ export function useEditItem() {
 
 export function useUpdateEditItem() {
   return React.useContext(UpdateEditItemContext);
+}
+
+export function useAuth() {
+  return React.useContext(AuthContext);
+}
+
+export function useUpdateAuth() {
+  return React.useContext(UpdateAuthContext);
 }

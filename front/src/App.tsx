@@ -1,22 +1,21 @@
-import { Layout } from "antd";
-
 import "./App.css";
-import { TodoList, Header } from "./components";
-import { TodoListProvider, SpinProvider } from "./contexts";
-import { EditItemProvider } from "./contexts";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider, SpinProvider } from "./contexts";
+import { Home, Entrance } from "./pages";
 
 function App() {
   return (
-    <SpinProvider>
-      <TodoListProvider>
-        <Layout className="container">
-          <Header />
-          <EditItemProvider>
-            <TodoList />
-          </EditItemProvider>
-        </Layout>
-      </TodoListProvider>
-    </SpinProvider>
+    <AuthProvider>
+      <SpinProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/auth" element={<Entrance />} />
+          </Routes>
+        </BrowserRouter>
+      </SpinProvider>
+    </AuthProvider>
   );
 }
 

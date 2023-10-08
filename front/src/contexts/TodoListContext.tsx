@@ -1,20 +1,27 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  createContext,
+} from "react";
 import { TodoItem } from "../interfaces";
 import { TodoListClient } from "../services";
 
-export const TodoListContext: React.Context<TodoItem[]> = React.createContext<
+export const TodoListContext: React.Context<TodoItem[]> = createContext<
   TodoItem[]
 >([]);
 
 export const TodoListUpdateContext: React.Context<
   (todoList: TodoItem[], fromServer?: boolean) => void
-> = React.createContext<(todoList: TodoItem[], fromServer?: boolean) => void>(() => {});
+> = createContext<(todoList: TodoItem[], fromServer?: boolean) => void>(
+  () => {}
+);
 
 function TodoListProvider({ children }: { children: React.ReactNode }) {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
   const client = useMemo(() => new TodoListClient(), []);
-  
 
   const fetchTodoItems = useCallback(async () => {
     setTodoList(await client.list());

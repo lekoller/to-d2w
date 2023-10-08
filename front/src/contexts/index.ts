@@ -1,6 +1,7 @@
 import TodoListProvider from "./TodoListContext";
 import SpinProvider from "./SpinContext";
 import EditItemProvider from "./EditItemContext";
+import AuthProvider from "./AuthContext";
 import {
   useSpin,
   useUpdateSpin,
@@ -8,6 +9,8 @@ import {
   useTodoListUpdate,
   useEditItem,
   useUpdateEditItem,
+  useAuth,
+  useUpdateAuth,
 } from "./hooks";
 
 export {
@@ -17,7 +20,10 @@ export {
   SpinProvider,
   useSpin,
   useUpdateSpin,
+  EditItemProvider,
   useEditItem,
   useUpdateEditItem,
-  EditItemProvider,
+  AuthProvider,
+  useAuth,
+  useUpdateAuth,
 };

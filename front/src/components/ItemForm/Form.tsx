@@ -2,7 +2,7 @@ import { Button, Form, Input, Space, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { CreateItemDTO, FormProps } from "../../interfaces";
 
-function D2WForm({
+function ItemForm({
   onSubmit,
   initialValues,
   flexDirection,
@@ -137,4 +137,4 @@ function D2WForm({
   );
 }
 
-export default D2WForm;
+export default ItemForm;

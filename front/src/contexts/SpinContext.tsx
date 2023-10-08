@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState, createContext } from "react";
 
 export const SpinContext: React.Context<boolean> =
-  React.createContext<boolean>(false);
+  createContext<boolean>(false);
 
 export const UpdateSpinContext: React.Context<(state: boolean) => void> =
-  React.createContext<(state: boolean) => void>(() => {});
+  createContext<(state: boolean) => void>(() => {});
 
 function SpinProvider({ children }: { children: React.ReactNode }) {
   const [spinning, setSpinning] = useState<boolean>(false);

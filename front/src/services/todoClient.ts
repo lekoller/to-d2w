@@ -7,7 +7,7 @@ export class TodoListClient extends Client<
   UpdateItemDTO
 > {
   constructor() {
-    super("/item");
+    super("/todo");
   }
 
   async completeItem(id: number): Promise<TodoItem> {
