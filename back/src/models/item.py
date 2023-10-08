@@ -28,7 +28,11 @@ class ItemModel(db.Model):
         )
     
     @classmethod
-    def get_all(cls, user_id=1) -> list['ItemModel']:
+    def get_one(cls, item_id: int, user_id: int) -> 'ItemModel':
+        return cls.query.filter_by(id=item_id, user_id=user_id).first()
+
+    @classmethod
+    def get_all(cls, user_id: int) -> list['ItemModel']:
         return cls.query.filter_by(user_id=user_id).order_by(asc(cls.id)).all()
 
     def to_dict(self):

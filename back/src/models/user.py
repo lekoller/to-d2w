@@ -7,9 +7,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class UserModel(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String(100), nullable=False)
+    password: str = db.Column(db.String(255), nullable=False)
 
     def __init__(self, entity: User):
         self.name = entity.name

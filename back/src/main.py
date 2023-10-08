@@ -14,6 +14,8 @@ def create_app(db_url: str, db_name: str) -> Flask:
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url+"/"+db_name
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 
     return app
 

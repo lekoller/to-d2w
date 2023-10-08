@@ -1,12 +1,12 @@
 def test_listing_empty(client):
-    response = client.get("/api/v1/item")
+    response = client.get("/api/v1/todo")
     data = response.data.decode("utf-8").replace("\n", "")
 
     assert response.status_code == 200
     assert "[]" == data
 
 def test_creating(client):
-    response = client.post("/api/v1/item", json={"title": "test", "description": "test"})
+    response = client.post("/api/v1/todo", json={"title": "test", "description": "test"})
     data = response.data.decode("utf-8").replace("\n", "")
 
     assert response.status_code == 201
@@ -15,7 +15,7 @@ def test_creating(client):
     assert '"description": "test"' in data
 
 def test_updating(client):
-    response = client.patch("/api/v1/item", json={"id": 1, "title": "test2", "description": "test2"})
+    response = client.patch("/api/v1/todo", json={"id": 1, "title": "test2", "description": "test2"})
     data = response.data.decode("utf-8").replace("\n", "")
 
     assert response.status_code == 200
@@ -25,7 +25,7 @@ def test_updating(client):
     assert '"completed": false' in data
 
 def test_finding(client):
-    response = client.get("/api/v1/item?id=1")
+    response = client.get("/api/v1/todo?id=1")
     data = response.data.decode("utf-8").replace("\n", "")
 
     assert response.status_code == 200
@@ -35,7 +35,7 @@ def test_finding(client):
     assert '"completed": false' in data
 
 def test_marking_completed(client):
-    response = client.patch("/api/v1/item/done?id=1")
+    response = client.patch("/api/v1/todo/done?id=1")
     data = response.data.decode("utf-8").replace("\n", "")
 
     assert response.status_code == 200
@@ -45,7 +45,7 @@ def test_marking_completed(client):
     assert '"completed": true' in data
 
 def test_finding_after_completed(client):
-    response = client.get("/api/v1/item?id=1")
+    response = client.get("/api/v1/todo?id=1")
     data = response.data.decode("utf-8").replace("\n", "")
 
     assert response.status_code == 200
@@ -55,6 +55,6 @@ def test_finding_after_completed(client):
     assert '"completed": true' in data
 
 def test_destroying(client):
-    response = client.delete("/api/v1/item?id=1")
+    response = client.delete("/api/v1/todo?id=1")
 
     assert response.status_code == 204

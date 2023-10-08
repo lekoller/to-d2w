@@ -2,7 +2,7 @@ import datetime
 import jwt
 
 from flask_restful import Resource
-from flask import request
+from flask import request, current_app as app
 
 from services.user import UserService
 
@@ -22,9 +22,13 @@ class LoginResource(Resource):
         
         payload = {
             'user_id': user.get('id'),
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=30),
         }
 
-        token = jwt.encode(payload, "secret_key")
+        print("secret:", app.config['SECRET_KEY'])
+
+        token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
+
+        print("token:", token)
 
         return {"token": token}, 200
