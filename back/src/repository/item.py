@@ -2,6 +2,7 @@ from models.item import ItemModel
 from repository.base import db
 from entities.item import Item
 
+
 class ItemRepository:
     def create(self, entity: Item) -> ItemModel:
         model = ItemModel(entity)

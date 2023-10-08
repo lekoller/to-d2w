@@ -1,8 +1,9 @@
 class Item:
-    def __init__(self, title, description, completed=False):
+    def __init__(self, title: str, description: str, user_id: int, completed=False):
         self.title = title
         self.description = description
         self.completed = completed
+        self.user_id = user_id
 
     def mark_completed(self):
         self.completed = True
