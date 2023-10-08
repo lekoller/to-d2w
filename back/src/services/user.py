@@ -23,3 +23,14 @@ class UserService():
 
         return model.to_dict()
     
+    def login(self, name: str, password: str) -> dict:
+        model = self.repository.get_one_by_name(name)
+
+        if not model:
+            return None
+        
+        if not model.check_password(password):
+            return None
+
+        return model.to_dict()
+    

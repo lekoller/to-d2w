@@ -3,15 +3,22 @@ from flask_restful import Api
 from repository.user import UserRepository
 
 from resources.item_crud import ItemCrudResource
+from resources.login import LoginResource
 from resources.mark_done import ItemMarkResource
 from repository.item import ItemRepository
 from resources.register_user import UserRegisterResource
 from services.item import ItemService
 from services.user import UserService
 
-
 def start_api(app: Flask):
     api = Api(app, prefix='/api/v1')
+
+    # api = Api()
+
+    # api.init_app(app)
+
+    # api.add_namespace(ns=ns)
+
 
     api.add_resource(
         ItemCrudResource, 
@@ -26,6 +33,11 @@ def start_api(app: Flask):
     api.add_resource(
         UserRegisterResource,
         '/sign-up',
+        resource_class_kwargs={ "service": UserService(UserRepository()) }
+    )
+    api.add_resource(
+        LoginResource,
+        '/login',
         resource_class_kwargs={ "service": UserService(UserRepository()) }
     )
 

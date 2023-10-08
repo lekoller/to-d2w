@@ -3,6 +3,7 @@ from flask import request
 
 from services.user import UserService
 
+
 class UserRegisterResource(Resource):
     def __init__(self, **kwargs):
         self.service: UserService = kwargs['service']

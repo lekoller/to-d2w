@@ -1,6 +1,8 @@
 from repository.base import db
 from entities.user import User
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 class UserModel(db.Model):
     __tablename__ = 'users'
@@ -11,7 +13,7 @@ class UserModel(db.Model):
 
     def __init__(self, entity: User):
         self.name = entity.name
-        self.password = entity.password
+        self.password = generate_password_hash(entity.password)
 
     def to_entity(self) -> User:
         return User(
@@ -19,9 +21,11 @@ class UserModel(db.Model):
             password=self.password
         )
     
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+    
     def to_dict(self):
         return {
             'id': self.id,
-            'name': self.name,
-            'password': self.password
+            'name': self.name
         }

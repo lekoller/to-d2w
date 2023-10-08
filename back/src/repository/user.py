@@ -15,3 +15,5 @@ class UserRepository:
     def get_one(self, user_id) -> UserModel:
         return UserModel.query.get(user_id)
     
+    def get_one_by_name(self, name: str) -> UserModel:
+        return UserModel.query.filter_by(name=name).first()
