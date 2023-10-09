@@ -1,24 +1,43 @@
 import { Button, Form, Input } from "antd";
-import { EntranceFormProps } from "../../interfaces";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { AuthDTO, EntranceFormProps } from "../../interfaces";
 
 function EntranceForm({
   instance,
   loginMode,
   setLoginMode,
+  onSubmit,
 }: EntranceFormProps) {
   const toggleMode = () => {
     instance.resetFields();
     setLoginMode(!loginMode);
   };
 
+  const onFinish = async (values: AuthDTO) => {
+    onSubmit(values);
+  };
+
   return (
-    <Form className="loginForm" form={instance}>
+    <Form className="loginForm" form={instance} onFinish={onFinish}>
       <h1>{loginMode ? "Login" : "Register"}</h1>
-      <Form.Item name={"username"}>
-        <Input placeholder="Username" />
+      <Form.Item
+        name={"name"}
+        rules={[{ required: true, message: "Please input your Username!" }]}
+      >
+        <Input
+          placeholder="Username"
+          prefix={<UserOutlined className="site-form-item-icon" />}
+        />
       </Form.Item>
-      <Form.Item name={"password"}>
-        <Input placeholder="Password" />
+      <Form.Item
+        name={"password"}
+        rules={[{ required: true, message: "Please input your Password!" }]}
+      >
+        <Input
+          placeholder="Password"
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+        />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">

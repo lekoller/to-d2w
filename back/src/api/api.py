@@ -13,13 +13,6 @@ from services.user import UserService
 def start_api(app: Flask):
     api = Api(app, prefix='/api/v1')
 
-    # api = Api()
-
-    # api.init_app(app)
-
-    # api.add_namespace(ns=ns)
-
-
     api.add_resource(
         ItemCrudResource, 
         '/todo', 

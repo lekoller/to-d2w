@@ -8,6 +8,8 @@ function Home() {
   const auth = useAuth();
 
   if (!auth) {
+    console.log("home auth:", auth)
+
     return <Navigate to="/auth" />;
   }
 

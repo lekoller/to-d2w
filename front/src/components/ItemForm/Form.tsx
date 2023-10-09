@@ -84,7 +84,7 @@ function ItemForm({
         <Form.Item
           name={"title"}
           style={{ marginRight: 10, width: titleWidth ? titleWidth : "20vw" }}
-          required
+          rules={[{ required: true, message: "At least the task name is required!" }]}
         >
           <Input
             placeholder="Name the task"

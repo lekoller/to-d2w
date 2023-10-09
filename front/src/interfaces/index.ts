@@ -61,3 +61,7 @@ export interface EntranceFormProps {
   loginMode: boolean;
   setLoginMode: (state: boolean) => void;
 }
+
+export interface LoginResponse {
+  token: string;
+}

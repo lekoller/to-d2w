@@ -43,9 +43,6 @@ class ItemCrudResource(Resource):
         id = request_body.get("id")
         request_body["user_id"] = current_user.id
 
-        # if not self.service.find_one(id=id, user_id=current_user.id):
-        #     return {"error": "Item not found"}, 404
-
         if not id:
             return {"error": "Id is required"}, 404
 
@@ -63,9 +60,6 @@ class ItemCrudResource(Resource):
         if not id:
             return {"error": "Id is required"}, 404
         
-        # if not self.service.find_one(id=id, user_id=current_user.id):
-        #     return {"error": "Item not found"}, 404
-
         deleted = self.service.delete(id, current_user.id)
 
         if not deleted:

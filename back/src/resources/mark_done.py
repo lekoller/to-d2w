@@ -17,9 +17,6 @@ class ItemMarkResource(Resource):
         if not id:
             return {"error": "Id is required"}, 404
         
-        # if not self.service.find_one(id=id, user_id=current_user.id):
-        #     return {"error": "Item not found"}, 404
-
         marked = self.service.mark_completed(id, current_user.id)
 
         if not marked:
