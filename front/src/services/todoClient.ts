@@ -6,8 +6,8 @@ export class TodoListClient extends Client<
   CreateItemDTO,
   UpdateItemDTO
 > {
-  constructor(token: string) {
-    super("/todo", token);
+  constructor(baseURL: string, token: string) {
+    super(baseURL, "/todo", token);
   }
 
   setToken(token: string): void {

@@ -6,9 +6,9 @@ export class Client<T, C, U> {
   protected token?: string;
   protected config?: object;
 
-  constructor(path: string, token?: string) {
+  constructor(baseURL: string, path: string, token?: string) {
     this.instance = axios.create({
-      baseURL: "http://localhost:5000/api/v1",
+      baseURL,
       timeout: 1000,
       headers: { "X-Custom-Header": "front-end" },
     });

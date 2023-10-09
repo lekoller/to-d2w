@@ -2,8 +2,8 @@ import { AuthDTO, LoginResponse } from "../interfaces";
 import { Client } from "./client";
 
 export class AuthClient extends Client<AuthDTO, AuthDTO, AuthDTO> {
-  constructor() {
-    super("/auth");
+  constructor(baseURL: string) {
+    super(baseURL, "/auth");
   }
 
   async login(dto: AuthDTO): Promise<LoginResponse> {

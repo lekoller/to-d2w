@@ -27,7 +27,9 @@ function TodoList() {
   const editItem = useEditItem();
   const auth = useAuth();
 
-  const client = new TodoListClient(auth);
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000/api/v1";
+
+  const client = new TodoListClient(baseURL, auth);
 
   const deleteItem = async (id: number) => {
     client.delete(id);

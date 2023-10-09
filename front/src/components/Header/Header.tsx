@@ -12,8 +12,9 @@ function D2wHeader() {
   const [form] = AntdForm.useForm();
   const auth = useAuth();
 
-  // const client = useMemo(() => new TodoListClient(auth? auth : ""), [auth]);
-  const client = useMemo(() => new TodoListClient(auth), [auth]);
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000/api/v1";
+
+  const client = useMemo(() => new TodoListClient(baseURL, auth), [baseURL, auth]);
 
   useEffect(() => {
     console.log("headers use effect")

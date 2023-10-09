@@ -13,7 +13,9 @@ function Entrance() {
   const [loginMode, setLoginMode] = useState(true);
   const [api, contextHolder] = notification.useNotification();
 
-  const client = new AuthClient();
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000/api/v1";
+  
+  const client = new AuthClient(baseURL);
 
   const updateAuth = useUpdateAuth();
   const updateSpin = useUpdateSpin();
