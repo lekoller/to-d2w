@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Modal, Form as AntdForm } from "antd";
 import { Form } from "../ItemForm";
-import { D2WModalProps } from "../../interfaces";
+import { ItemModalProps } from "../../interfaces";
 import { 
   useUpdateEditItem, 
   useEditItem 
 } from "../../contexts";
 
-function D2WModal({
+function ItemModal({
   open,
   setOpen,
   title,
@@ -16,7 +16,8 @@ function D2WModal({
   itemTitle,
   itemId,
   commit,
-}: D2WModalProps) {
+  editionMode,
+}: ItemModalProps) {
   const updateEditItem = useUpdateEditItem();
   const editItem = useEditItem();
 
@@ -58,13 +59,15 @@ function D2WModal({
   }
 
   useEffect(() => {
-    if (itemId) {
+    if (editionMode && itemId) {
+      console.log("modal use effect - item id:", itemId)
+      console.log("modal use effect - editionMode:", editionMode)
       form.setFieldsValue({
         title: itemTitle ? itemTitle : "",
         description: itemDescription ? itemDescription : "",
       });
     }
-  }, [itemTitle, itemDescription, itemId, form]);
+  }, [itemTitle, itemDescription, itemId, form, editionMode]);
 
   useEffect(() => {
     if (itemId && (editTitle !== editItem.title || editDescription !== editItem.description)) {
@@ -117,4 +120,4 @@ function D2WModal({
   );
 }
 
-export default D2WModal;
+export default ItemModal;

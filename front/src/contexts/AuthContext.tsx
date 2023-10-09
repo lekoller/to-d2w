@@ -10,6 +10,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const updateAuth = (state: string) => {
     setAuth(state);
+    localStorage.setItem("token", state);
   };
 
   return (

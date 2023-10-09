@@ -6,11 +6,22 @@ export class TodoListClient extends Client<
   CreateItemDTO,
   UpdateItemDTO
 > {
-  constructor() {
-    super("/todo");
+  constructor(token: string) {
+    super("/todo", token);
+  }
+
+  setToken(token: string): void {
+    this.token = token;
+    this.config = {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
   }
 
   async completeItem(id: number): Promise<TodoItem> {
-    return (await this.instance.patch(`${this.path}/done?id=${id}`)).data;
+    return (
+      await this.instance.patch(`${this.path}/done?id=${id}`, {}, this.config)
+    ).data;
   }
 }

@@ -20,8 +20,9 @@ export const TodoListUpdateContext: React.Context<
 
 function TodoListProvider({ children }: { children: React.ReactNode }) {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
+  const auth = useMemo(() => localStorage.getItem("token"), []);
 
-  const client = useMemo(() => new TodoListClient(), []);
+  const client = useMemo(() => new TodoListClient(auth? auth : ""), [auth]);
 
   const fetchTodoItems = useCallback(async () => {
     setTodoList(await client.list());

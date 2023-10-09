@@ -2,15 +2,25 @@ import { Typography, Form as AntdForm } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Form } from "../ItemForm";
 import { TodoListClient } from "../../services";
-import { useTodoListUpdate, useUpdateSpin } from "../../contexts";
+import { useAuth, useTodoListUpdate, useUpdateSpin } from "../../contexts";
 import { CreateItemDTO } from "../../interfaces";
+import { useEffect, useMemo } from "react";
 
 function D2wHeader() {
-  const client = new TodoListClient();
-
   const updateItems = useTodoListUpdate();
   const updateSpin = useUpdateSpin();
   const [form] = AntdForm.useForm();
+  const auth = useAuth();
+
+  // const client = useMemo(() => new TodoListClient(auth? auth : ""), [auth]);
+  const client = useMemo(() => new TodoListClient(auth), [auth]);
+
+  useEffect(() => {
+    console.log("headers use effect")
+
+    client.setToken(auth);
+
+  }, [client, auth]);
 
   const onSubmit = async (values: CreateItemDTO) => {
     updateSpin(true);

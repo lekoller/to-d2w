@@ -44,7 +44,7 @@ export interface ItemFormProps {
   setDescription?: (description: string) => void;
 }
 
-export interface D2WModalProps {
+export interface ItemModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   title: string;
@@ -53,6 +53,7 @@ export interface D2WModalProps {
   itemTitle?: string;
   itemId?: number;
   commit?: () => void;
+  editionMode?: boolean;
 }
 
 export interface EntranceFormProps {

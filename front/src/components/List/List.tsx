@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Empty, Layout, Spin, Timeline } from "antd";
 import { Modal } from "../Modal";
 import {
+  useAuth,
   useEditItem,
   useSpin,
   useTodoList,
@@ -24,8 +25,9 @@ function TodoList() {
   const spinning = useSpin();
   const updateSpin = useUpdateSpin();
   const editItem = useEditItem();
+  const auth = useAuth();
 
-  const client = new TodoListClient();
+  const client = new TodoListClient(auth);
 
   const deleteItem = async (id: number) => {
     client.delete(id);
@@ -103,6 +105,7 @@ function TodoList() {
           itemTitle={selectedTitle}
           itemDescription={selectedDescription}
           commit={updateItem}
+          editionMode
         />
       </Layout>
     </Spin>
