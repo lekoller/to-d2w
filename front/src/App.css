@@ -32,7 +32,6 @@
   width: 100vw;
   height: 100vh;
   background: linear-gradient(to bottom right, #0B2238, #E64D00);
-  /* background: url("./assets/login-background.jpg"); */
   background: url("https://images.pexels.com/photos/5717479/pexels-photo-5717479.jpeg?cs=srgb&dl=pexels-polina-kovaleva-5717479.jpg&fm=jpg");
   background-size: cover;
 }

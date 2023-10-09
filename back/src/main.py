@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate, upgrade
-from gevent.pywsgi import WSGIServer
+# from gevent.pywsgi import WSGIServer
 
 from repository import base
 from dotenv import load_dotenv
@@ -31,6 +31,7 @@ db_pass = os.environ.get('DB_PASS')
 db_host = os.environ.get('DB_HOST')
 db_port = os.environ.get('DB_PORT')
 db_name = os.environ.get('DB_NAME')
+server_port = os.environ.get('SERVER_PORT')
 
 db_url = "postgresql://"+db_user+":"+db_pass+"@"+db_host+":"+db_port
 
@@ -48,5 +49,6 @@ with app.app_context():
 
 
 if __name__ == '__main__':
-    http_server = WSGIServer(('', 5050), app)
-    http_server.serve_forever()
+    # http_server = WSGIServer(('', int(server_port)), app)
+    # http_server.serve_forever()
+    app.run(port=int(server_port))

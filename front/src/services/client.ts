@@ -10,7 +10,6 @@ export class Client<T, C, U> {
     this.instance = axios.create({
       baseURL,
       timeout: 1000,
-      headers: { "X-Custom-Header": "front-end" },
     });
     this.path = path;
     this.token = token;

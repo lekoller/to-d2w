@@ -17,32 +17,36 @@ services:
     networks:
       - backend-network
   
-  # backend:
-  #   build:
-  #     context: ./back
-  #   container_name: to_d2w_backend
-  #   restart: always
-  #   ports:
-  #     - 5000:5000
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - backend-network
-  #     - frontend-network
+  backend:
+    build:
+      context: ./back
+    container_name: to_d2w_backend
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+    networks:
+      - backend-network
+      - frontend-network
+    env_file:
+      - ./back/.env
 
   frontend:
     build:
       context: ./front
-      # args:
-      #   - VITE_BASE_URL=$(cat ./front/.env)
+      args:
+        - VITE_BASE_URL=$(cat ./front/.env | grep VITE_BASE_URL | cut -d '=' -f2)
     container_name: to_d2w_frontend
     restart: always
     ports:
-      - 5173:5173
+      - 8080:8080
     networks:
       - frontend-network
-    # depends_on:
-    #   - backend
+    depends_on:
+      - backend
+    env_file:
+      - ./front/.env
 
 networks:
   backend-network:
