@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate, upgrade
+from gevent.pywsgi import WSGIServer
 
 from repository import base
 from dotenv import load_dotenv
@@ -47,4 +48,5 @@ with app.app_context():
 
 
 if __name__ == '__main__':
-    app.run()
+    http_server = WSGIServer(('', 5050), app)
+    http_server.serve_forever()
