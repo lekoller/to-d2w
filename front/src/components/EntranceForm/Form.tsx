@@ -1,9 +1,19 @@
 import { Button, Form, Input } from "antd";
+import { EntranceFormProps } from "../../interfaces";
 
-function EntranceForm() {
+function EntranceForm({
+  instance,
+  loginMode,
+  setLoginMode,
+}: EntranceFormProps) {
+  const toggleMode = () => {
+    instance.resetFields();
+    setLoginMode(!loginMode);
+  };
+
   return (
-    <Form className="loginForm">
-      <h1>Login</h1>
+    <Form className="loginForm" form={instance}>
+      <h1>{loginMode ? "Login" : "Register"}</h1>
       <Form.Item name={"username"}>
         <Input placeholder="Username" />
       </Form.Item>
@@ -12,9 +22,15 @@ function EntranceForm() {
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Login
+          Confirm
         </Button>
       </Form.Item>
+      <div className="shadow">
+        <p>
+          {loginMode ? "New here" : "Already have an account"}?{" "}
+          <a onClick={toggleMode}>{loginMode ? "Sign up" : "Sign in"}</a>.
+        </p>
+      </div>
     </Form>
   );
 }

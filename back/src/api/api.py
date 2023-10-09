@@ -32,12 +32,12 @@ def start_api(app: Flask):
     )
     api.add_resource(
         UserRegisterResource,
-        '/sign-up',
+        '/auth',
         resource_class_kwargs={ "service": UserService(UserRepository()) }
     )
     api.add_resource(
         LoginResource,
-        '/login',
+        '/auth/login',
         resource_class_kwargs={ "service": UserService(UserRepository()) }
     )
 

@@ -49,3 +49,17 @@
   padding: 2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
+
+.shadow {
+  box-shadow: 0 0px 8px rgb(22, 22, 22);
+  padding-inline: 16px;
+  padding-top: 12px;
+  margin-bottom: 0;
+  color: white;
+  background-color: #0B2238;
+  border-radius: 10px;
+}
+
+h1 {
+  color: #0B2238;
+}

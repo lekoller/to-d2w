@@ -1,6 +1,6 @@
 import { Button, Form, Input, Space, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { CreateItemDTO, FormProps } from "../../interfaces";
+import { CreateItemDTO, ItemFormProps } from "../../interfaces";
 
 function ItemForm({
   onSubmit,
@@ -12,7 +12,7 @@ function ItemForm({
   instance,
   setTitle,
   setDescription,
-}: FormProps) {
+}: ItemFormProps) {
   
 
   // const reset = useCallback(() => {

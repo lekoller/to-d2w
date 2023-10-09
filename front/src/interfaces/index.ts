@@ -18,6 +18,11 @@ export interface UpdateItemDTO {
   description: string;
 }
 
+export interface AuthDTO {
+  name: string;
+  password: string;
+}
+
 export interface TimelineSetters {
   setOpenEdit: (open: boolean) => void;
   setSelectedId: (id: number) => void;
@@ -27,7 +32,7 @@ export interface TimelineSetters {
   setOpenDelete: (open: boolean) => void;
 }
 
-export interface FormProps {
+export interface ItemFormProps {
   instance: FormInstance;
   onSubmit: (values: CreateItemDTO) => void;
   initialValues?: CreateItemDTO;
@@ -48,4 +53,11 @@ export interface D2WModalProps {
   itemTitle?: string;
   itemId?: number;
   commit?: () => void;
+}
+
+export interface EntranceFormProps {
+  instance: FormInstance;
+  onSubmit: (values: AuthDTO) => void;
+  loginMode: boolean;
+  setLoginMode: (state: boolean) => void;
 }
