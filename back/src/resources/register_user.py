@@ -15,5 +15,7 @@ class UserRegisterResource(Resource):
 
         if not created:
             return {"error": "User not created"}, 400
+        if created.get('error'):
+            return created, 400
 
         return created, 201

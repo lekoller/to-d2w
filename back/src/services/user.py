@@ -11,6 +11,9 @@ class UserService():
             password=body.get('password')
         )
 
+        if self.repository.get_one_by_name(user.name):
+            return {'error': 'User already exists'}
+
         model = self.repository.create(user)
 
         return model.to_dict()

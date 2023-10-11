@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate, upgrade
-# from gevent.pywsgi import WSGIServer
+from waitress import serve
 
 from repository import base
 from dotenv import load_dotenv
@@ -15,7 +15,7 @@ def create_app(db_url: str, db_name: str) -> Flask:
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url+"/"+db_name
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 
     return app
@@ -34,6 +34,7 @@ db_name = os.environ.get('DB_NAME')
 server_port = os.environ.get('SERVER_PORT')
 
 db_url = "postgresql://"+db_user+":"+db_pass+"@"+db_host+":"+db_port
+# db_url = "postgresql://"+db_user+":"+db_pass+"@localhost:"+db_port
 
 base.create_db(db_url=db_url, db_name=db_name)
 
@@ -49,6 +50,4 @@ with app.app_context():
 
 
 if __name__ == '__main__':
-    # http_server = WSGIServer(('', int(server_port)), app)
-    # http_server.serve_forever()
-    app.run(port=int(server_port))
+    serve(app, host='0.0.0.0', port=int(server_port), threads=1)

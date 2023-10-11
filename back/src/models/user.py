@@ -8,7 +8,7 @@ class UserModel(db.Model):
     __tablename__ = 'users'
 
     id: int = db.Column(db.Integer, primary_key=True)
-    name: str = db.Column(db.String(100), nullable=False)
+    name: str = db.Column(db.String(100), nullable=False, unique=True)
     password: str = db.Column(db.String(255), nullable=False)
 
     def __init__(self, entity: User):
