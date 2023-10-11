@@ -10,4 +10,4 @@ EXPOSE 8000
 
 ENV FLASK_APP=src/main.py
 
-CMD ["python", "src/main.py", "--host=0.0.0.0"]
+CMD ["python", "src/main.py"]
