@@ -60,8 +60,6 @@ function ItemModal({
 
   useEffect(() => {
     if (editionMode && itemId) {
-      console.log("modal use effect - item id:", itemId)
-      console.log("modal use effect - editionMode:", editionMode)
       form.setFieldsValue({
         title: itemTitle ? itemTitle : "",
         description: itemDescription ? itemDescription : "",

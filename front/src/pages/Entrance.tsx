@@ -13,7 +13,7 @@ function Entrance() {
   const [loginMode, setLoginMode] = useState(true);
   const [api, contextHolder] = notification.useNotification();
 
-  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000/api/v1";
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000/api/v1";
   
   const client = new AuthClient(baseURL);
 
@@ -22,12 +22,19 @@ function Entrance() {
   const spin = useSpin();
   const navigate = useNavigate();
   
-  const openNotification = () => {
+  const openNotification = (success: boolean, error: string = "We couldn't register your credentials, try again.") => {
+    if (success) {
+      api.open({
+        message: 'Welcome to D2W!',
+        description:
+          `We registered your credentials, now you can log in.`,
+        icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      });
+      return
+    }
     api.open({
-      message: 'Welcome to D2W!',
-      description:
-        `We registered your credentials, now you can log in.`,
-      icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      message: 'Error!',
+      description: error,
     });
   };
 
@@ -50,17 +57,13 @@ function Entrance() {
           .login(values)
           .then((res) => {
             if (res) {
-              // localStorage.setItem("token", res.token);
-              // window.location.href = "/todo";
-              console.log("res", res);
-
               updateAuth(res.token);
 
               navigate("/home");
             }
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
+            openNotification(false, "Login unsuccessful, try again reviewing your credentials.");
           });
 
         break;
@@ -70,12 +73,12 @@ function Entrance() {
           .then((res) => {
             if (res) {
               setLoginMode(true);
-              openNotification();
+              openNotification(true);
               form.setFieldValue("password", "");
             }
           })
           .catch((err) => {
-            console.log(err);
+            openNotification(false, err.response.data.error);
           });
 
         break;

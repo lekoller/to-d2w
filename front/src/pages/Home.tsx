@@ -7,9 +7,7 @@ import { EditItemProvider } from "../contexts";
 function Home() {
   const auth = useAuth();
 
-  if (!auth) {
-    console.log("home auth:", auth)
-
+  if (!auth && !localStorage.getItem("token")) {
     return <Navigate to="/auth" />;
   }
 

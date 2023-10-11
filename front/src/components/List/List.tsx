@@ -27,7 +27,7 @@ function TodoList() {
   const editItem = useEditItem();
   const auth = useAuth();
 
-  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000/api/v1";
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000/api/v1";
 
   const client = new TodoListClient(baseURL, auth);
 

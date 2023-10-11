@@ -18,7 +18,6 @@ function EditItemProvider({ children }: { children: React.ReactNode }) {
   const [item, setItem] = useState<UpdateItemDTO>(emptyItem);
 
   const updateEditItem = (state: UpdateItemDTO) => {
-    console.log("updateEditItem", state);
     setItem(state);
   };
 

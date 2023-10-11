@@ -14,15 +14,6 @@ function ItemForm({
   setDescription,
 }: ItemFormProps) {
   
-
-  // const reset = useCallback(() => {
-  //   console.log("reset called")
-  //   form.resetFields();
-  //   setTitle("");
-  //   setDescription("");
-  //   console.log("reset finished")
-  // }, [form]);
-
   const onFinish = async (values: CreateItemDTO) => {
     onSubmit(values);
   };
@@ -38,24 +29,6 @@ function ItemForm({
       setDescription(description);
     }
   }
-
-  // const updateEditItem = useUpdateEditItem();
-  // const editItem = useEditItem();
-  // const titleEdit = editItem.title;
-  // const descriptionEdit = editItem.description;
-
-  // useEffect(() => {
-  //   console.log("initialValues", initialValues);
-
-  //   if (formState && (title !== titleEdit || description !== descriptionEdit)) {
-  //     console.log("o do Form: ", formState.id);
-  //     updateEditItem({
-  //       id: formState.id,
-  //       title: title,
-  //       description: description,
-  //     });
-  //   }
-  // }, [title, description, updateEditItem, titleEdit, descriptionEdit, itemId, initialValues]);
 
   return (
     <Form

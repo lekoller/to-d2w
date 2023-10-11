@@ -22,7 +22,7 @@ function TodoListProvider({ children }: { children: React.ReactNode }) {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
   const auth = useMemo(() => localStorage.getItem("token"), []);
 
-  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:5000/api/v1";
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000/api/v1";
 
   const client = useMemo(() => new TodoListClient(baseURL, auth? auth : ""), [baseURL, auth]);
 
